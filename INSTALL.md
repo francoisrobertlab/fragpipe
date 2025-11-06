@@ -48,10 +48,14 @@ git clone https://github.com/francoisrobertlab/fragpipe.git
 
 ### Download FragPipe and tools
 
+Do these steps on a Linux computer.
+
 > [!TIP]
 > Make sure Java is installed, use `java -version` to check.
 
 Go to [FragPipe download Website](https://github.com/Nesvilab/FragPipe/releases) and download the FragPipe ZIP file for Linux. Unzip FragPipe and start the GUI.
+
+Or use the following commands.
 
 ```shell
 version=23.1
