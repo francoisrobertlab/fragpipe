@@ -23,9 +23,9 @@ Save the workflow using *"Save to custom folder"* and the manifest using *"Save 
 > [!TIP]
 > You will need to change the location of `database.db-path` in the workflow file and the location of the RAW files in the manifest file.
 
-Edit workflow file using you preferred text editor and remove the full path of the `database.db-path` element to keep only the filename.
+Edit workflow file using you preferred text editor and replace the folder of the `database.db-path` element to `/data`.
 
-Edit manifest file using you preferred text editor and remove the full path of the RAW files in the first column to keep only the filenames.
+Edit manifest file using you preferred text editor and replace the folder of the RAW files in the first column to `/data`.
 
 ## Transfer data to scratch
 
