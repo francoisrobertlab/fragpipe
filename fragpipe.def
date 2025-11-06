@@ -1,0 +1,50 @@
+#########################
+# You should install FragPipe locally and download MSFragger, IonQuant and diaTracer from the UI.
+# Then run the build using "--build-arg tools=fragpipe-23.1/tools"
+#########################
+
+Bootstrap: docker
+From: fcyucn/fragpipe:{{version}}
+
+%arguments
+  version=23.1
+  tools=tools
+
+%files
+  {{tools}}/MSFragger* /fragpipe_bin/tools/
+  {{tools}}/IonQuant-*.jar /fragpipe_bin/tools/
+  {{tools}}/diaTracer-*.jar /fragpipe_bin/tools/
+
+%post -c /bin/bash
+# Fixes scipy version.
+  pip install --break-system-packages statsmodels==0.14.5
+# Create symbolic links to simplify folders.
+  fragpipe=/fragpipe_bin/fragpipe-{{version}}/fragpipe-{{version}}
+  if [[ ! -d "$fragpipe" ]]
+  then
+    >&2 echo "Could not find FragPipe's folder"
+    exit 1
+  fi
+  ln -s "$fragpipe" /fragpipe
+  mv /fragpipe_bin/tools/* /fragpipe/tools
+  diann=$(find "${fragpipe}/tools" -type f -executable -name "diann-*" | head -1)
+  if [[ ! -f "$diann" ]]
+  then
+    >&2 echo "Could not find DIA-NN executable"
+    exit 1
+  fi
+  diann_folder=$(dirname "$diann")
+  ln -s "$diann_folder" /diann
+  ln -s "$diann" "${diann_folder}/diann"
+
+%runscript
+  echo "Running FragPipe with command: /fragpipe/bin/fragpipe $*"
+  exec /fragpipe/bin/fragpipe "$@"
+
+%labels
+  Software FragPipe https://github.com/Nesvilab/FragPipe
+  Version {{ version }}
+  Author Christian Poitras, IRCM
+
+%help
+  Runs FragPipe with all parameters specified.
