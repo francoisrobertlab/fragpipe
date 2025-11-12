@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=def-robertf
-#SBATCH --time=5-00:00:00
+#SBATCH --time=1-00:00:00
 #SBATCH --output=fragpipe-%A.out
 
 set -e
