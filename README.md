@@ -92,5 +92,5 @@ threads=48
 > Replace `$workflow` and `$manifest` with the actual parameters to use.
 
 ```shell
-sbatch --account=def-robertf --cpus-per-task=$threads --mem=64G fragpipe.sh --headless --workflow $workflow --manifest $manifest --workdir output --threads $threads
+sbatch --cpus-per-task=$threads --mem=64G fragpipe.sh --headless --workflow $workflow --manifest $manifest --workdir output --threads $threads
 ```
